@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8FF63D20-9262-471D-AE73-659E356B6B1C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>JoshCodes.Web</RootNamespace>
+    <AssemblyName>JoshCodes.Web</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Attributes\AcceptVerbsByParameterAttribute.cs" />
+    <Compile Include="Attributes\RestrictedAttribute.cs" />
+    <Compile Include="ApiException.cs" />
+    <Compile Include="Routing\HttpUriHelper.cs" />
+    <Compile Include="Routing\IRESTController.cs" />
+    <Compile Include="Routing\RoutingExtensions.cs" />
+    <Compile Include="Routing\IUriHelper.cs" />
+    <Compile Include="Routing\UriControllerExtensions.cs" />
+    <Compile Include="Routing\UriHelper.cs" />
+    <Compile Include="Routing\UriHelperExtensions.cs" />
+    <Compile Include="Uri\UriExtensions.cs" />
+    <Compile Include="Attributes\UrnNamespaceIdentifierAttribute.cs" />
+    <Compile Include="Attributes\GetAttributeExtensions.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\JoshCodes.Core\JoshCodes.Core.csproj">
+      <Project>{39C7060E-D6FE-4B54-803A-C26BE8886DEE}</Project>
+      <Name>JoshCodes.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
