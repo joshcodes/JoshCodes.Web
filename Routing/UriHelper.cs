@@ -53,7 +53,7 @@ namespace JoshCodes.Web.Routing
         }
         #endregion
 
-        private Uri RestfulUrlFor<TId>(Type controllerType, TId id, bool fullUrl)
+        internal static Uri RestfulUrlFor<TId>(Type controllerType, TId id, bool fullUrl, System.Web.Mvc.UrlHelper mvcUrlHelper)
         {
             // Get initial route values for controller / action
             var routeValues = new System.Web.Routing.RouteValueDictionary();
@@ -80,14 +80,14 @@ namespace JoshCodes.Web.Routing
         {
             // Get initial route values for controller / action
             var controllerType = this.controller.GetType();
-            return RestfulUrlFor<Uri>(controllerType, idUrn, fullUrl);
+            return RestfulUrlFor<Uri>(controllerType, idUrn, fullUrl, mvcUrlHelper);
         }
 
         public Uri RestfulUrlFor<TEntity, TId>(TId id, bool fullUrl = false)
         {
             // Get initial route values for controller / action
             var controllerType = typeof(TEntity);
-            return RestfulUrlFor<TId>(controllerType, id, fullUrl);
+            return RestfulUrlFor<TId>(controllerType, id, fullUrl, mvcUrlHelper);
         }
 
         public Uri RestfulUrlFor<TController>(System.Collections.Generic.IDictionary<string, string> queryParams, bool fullUrl = false)
@@ -105,6 +105,12 @@ namespace JoshCodes.Web.Routing
                 baseUri.ToString();
 
             return new Uri(uri + "?" + queryStringCollection.ToString(), baseUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+        }
+
+        public Uri RestfulUrlFor<TController>(Models.Domain.DomainId id, bool fullUrl = false)
+        {
+            var baseUri = RestfulUrlFor<TController, string>(id.Urn.AbsoluteUri, fullUrl);
+            return baseUri;
         }
     }
 }

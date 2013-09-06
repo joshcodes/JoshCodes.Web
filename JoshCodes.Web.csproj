@@ -32,6 +32,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Routing" />
@@ -42,6 +43,12 @@
     <Compile Include="Attributes\AcceptVerbsByParameterAttribute.cs" />
     <Compile Include="Attributes\RestrictedAttribute.cs" />
     <Compile Include="ApiException.cs" />
+    <Compile Include="Controllers\IdExtension.cs" />
+    <Compile Include="Models\Api\ModelObject.cs" />
+    <Compile Include="Models\Api\WebId.cs" />
+    <Compile Include="Models\Domain\DomainId.cs" />
+    <Compile Include="Models\Domain\ModelObject.cs" />
+    <Compile Include="Models\Persistence\IDefineModelObject.cs" />
     <Compile Include="Routing\HttpUriHelper.cs" />
     <Compile Include="Routing\IRESTController.cs" />
     <Compile Include="Routing\RoutingExtensions.cs" />

@@ -28,6 +28,8 @@ namespace JoshCodes.Web.Routing
 
         System.Uri RestfulUrlFor<TController>(IDictionary<string, string> queryParams, bool fullUrl = false);
 
+        System.Uri RestfulUrlFor<TController>(Models.Domain.DomainId id, bool fullUrl = false);
+
         string Action(MethodInfo method, bool fullUrl = false, ParameterLookupDelegate resolveParams = null);
 
 		System.Uri CurrentUri { get; }
