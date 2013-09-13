@@ -47,6 +47,7 @@
     <Compile Include="Models\Api\ModelObject.cs" />
     <Compile Include="Models\Api\WebId.cs" />
     <Compile Include="Models\Domain\DomainId.cs" />
+    <Compile Include="Models\Domain\Extensions.cs" />
     <Compile Include="Models\Domain\ModelObject.cs" />
     <Compile Include="Models\Persistence\IDefineModelObject.cs" />
     <Compile Include="Routing\HttpUriHelper.cs" />
