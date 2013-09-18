@@ -109,7 +109,7 @@ namespace JoshCodes.Web.Routing
 
         public Uri RestfulUrlFor<TController>(Models.Domain.DomainId id, bool fullUrl = false)
         {
-            var baseUri = RestfulUrlFor<TController, string>(id.Urn.AbsoluteUri, fullUrl);
+            var baseUri = RestfulUrlFor<TController, string>(id == null? String.Empty : id.Urn.AbsoluteUri, fullUrl);
             return baseUri;
         }
     }
