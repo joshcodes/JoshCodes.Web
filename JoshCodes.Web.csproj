@@ -44,6 +44,7 @@
     <Compile Include="Attributes\RestrictedAttribute.cs" />
     <Compile Include="ApiException.cs" />
     <Compile Include="Controllers\IdExtension.cs" />
+    <Compile Include="Models\Api\IRESTApiModel.cs" />
     <Compile Include="Models\Api\ModelObject.cs" />
     <Compile Include="Models\Api\WebId.cs" />
     <Compile Include="Models\Domain\DomainId.cs" />

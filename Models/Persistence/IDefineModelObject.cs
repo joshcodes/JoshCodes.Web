@@ -13,7 +13,7 @@ namespace JoshCodes.Web.Models.Persistence
 
         Uri IdUrn { get; }
 
-        DateTime UpdatedAt { get; }
+        DateTime UpdatedAt { get; set; }
 
         DateTime CreatedAt { get; }
     }

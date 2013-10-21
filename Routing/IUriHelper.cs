@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Reflection;
 using System.Collections.Generic;
+using JoshCodes.Web.Models.Api;
 
 namespace JoshCodes.Web.Routing
 {
@@ -29,6 +30,15 @@ namespace JoshCodes.Web.Routing
         System.Uri RestfulUrlFor<TController>(IDictionary<string, string> queryParams, bool fullUrl = false);
 
         System.Uri RestfulUrlFor<TController>(Models.Domain.DomainId id, bool fullUrl = false);
+
+        System.Uri RestfulUrlFor<TController, TApiModel, T>(Expression<Func<TApiModel, T>> parameter, string value, bool fullUrl = false)
+            where TController : IRESTController<TApiModel>;
+
+        System.Uri RestfulUrlFor<TController, TApiModel>(Expression<Func<TApiModel, WebId>> parameter, WebId value, bool fullUrl = false)
+            where TController : IRESTController<TApiModel>;
+
+        System.Uri RestfulUrlFor<TController, TApiModel, T>(Func<TApiModel> parameters, bool fullUrl = false)
+            where TController : IRESTController<TApiModel>;
 
         string Action(MethodInfo method, bool fullUrl = false, ParameterLookupDelegate resolveParams = null);
 

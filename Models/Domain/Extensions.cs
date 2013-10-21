@@ -15,5 +15,14 @@ namespace JoshCodes.Web.Models.Domain
             }
             return new DomainId(modelObject.IdKey, modelObject.IdGuid, modelObject.IdUrn);
         }
+
+        public static DomainId ToDomainId(this Api.WebId webId)
+        {
+            if (webId == null)
+            {
+                return null;
+            }
+            return new DomainId(webId.Key, webId.Guid, webId.Urn);
+        }
     }
 }

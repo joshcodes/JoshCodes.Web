@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 using JoshCodes.Web.Routing.Extensions;
+using JoshCodes.Web.Models.Api;
 
 namespace JoshCodes.Web.Routing
 {
@@ -105,6 +107,53 @@ namespace JoshCodes.Web.Routing
                 baseUri.ToString();
 
             return new Uri(uri + "?" + queryStringCollection.ToString(), baseUri.IsAbsoluteUri ? UriKind.Absolute : UriKind.Relative);
+        }
+
+
+        public Uri RestfulUrlFor<TController, TApiModel, T>(Expression<Func<TApiModel, T>> parameter, string value, bool fullUrl = false)
+            where TController : IRESTController<TApiModel>
+        {
+            var parameterExprBody = (MemberExpression)parameter.Body;
+            var propInfo = parameterExprBody.Member;
+            var propName = propInfo.Name;
+            var dataMemberAttr = (System.Runtime.Serialization.DataMemberAttribute)propInfo.GetCustomAttributes(
+                typeof(System.Runtime.Serialization.DataMemberAttribute), false).FirstOrDefault();
+            if (dataMemberAttr != null)
+            {
+                propName = dataMemberAttr.Name;
+            }
+
+            var queryParams = new System.Collections.Generic.Dictionary<string, string>() { { propName, value } };
+            return this.RestfulUrlFor<TController>(queryParams, fullUrl);
+        }
+
+        public System.Uri RestfulUrlFor<TController, TApiModel>(Expression<Func<TApiModel, WebId>> parameter, WebId value, bool fullUrl = false)
+            where TController : IRESTController<TApiModel>
+        {
+            var parameterExprBody = (MemberExpression)parameter.Body;
+            var propInfo = parameterExprBody.Member;
+            var propName = propInfo.Name;
+            var dataMemberAttr = (System.Runtime.Serialization.DataMemberAttribute)propInfo.GetCustomAttributes(
+                typeof(System.Runtime.Serialization.DataMemberAttribute), false).FirstOrDefault();
+            if (dataMemberAttr != null)
+            {
+                propName = dataMemberAttr.Name;
+            }
+
+            var queryParams = new System.Collections.Generic.Dictionary<string, string>()
+            {
+                { propName + ".key", value.Key },
+                { propName + ".guid", value.Guid.ToString() },
+                { propName + ".urn", value.Urn.AbsoluteUri },
+                { propName + ".source", value.Source.OriginalString }
+            };
+            return this.RestfulUrlFor<TController>(queryParams, fullUrl);
+        }
+
+        public Uri RestfulUrlFor<TController, TApiModel, T>(Func<TApiModel> parameters, bool fullUrl = false)
+            where TController : IRESTController<TApiModel>
+        {
+            throw new NotImplementedException();
         }
 
         public Uri RestfulUrlFor<TController>(Models.Domain.DomainId id, bool fullUrl = false)
