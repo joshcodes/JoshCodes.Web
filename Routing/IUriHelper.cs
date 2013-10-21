@@ -23,8 +23,6 @@ namespace JoshCodes.Web.Routing
         string Action<TController>(Expression<Func<TController, ActionResult>> link, bool fullUrl = false)
             where TController : IController;
 
-        System.Uri RestfulUrlForUrn(Uri idUrn, bool fullUrl = false);
-
         System.Uri RestfulUrlFor<TController, TId>(TId id, bool fullUrl = false);
 
         System.Uri RestfulUrlFor<TController>(IDictionary<string, string> queryParams, bool fullUrl = false);
@@ -34,11 +32,18 @@ namespace JoshCodes.Web.Routing
         System.Uri RestfulUrlFor<TController, TApiModel, T>(Expression<Func<TApiModel, T>> parameter, string value, bool fullUrl = false)
             where TController : IRESTController<TApiModel>;
 
+        System.Uri RestfulUrlFor<TController, TApiModel>(Expression<Func<TApiModel, WebId>> parameter,
+                JoshCodes.Web.Models.Domain.DomainId value, bool fullUrl = false)
+            where TController : IRESTController<TApiModel>
+            where TApiModel : IRESTApiModel;
+
         System.Uri RestfulUrlFor<TController, TApiModel>(Expression<Func<TApiModel, WebId>> parameter, WebId value, bool fullUrl = false)
-            where TController : IRESTController<TApiModel>;
+            where TController : IRESTController<TApiModel>
+            where TApiModel : IRESTApiModel;
 
         System.Uri RestfulUrlFor<TController, TApiModel, T>(Func<TApiModel> parameters, bool fullUrl = false)
-            where TController : IRESTController<TApiModel>;
+            where TController : IRESTController<TApiModel>
+            where TApiModel : IRESTApiModel;
 
         string Action(MethodInfo method, bool fullUrl = false, ParameterLookupDelegate resolveParams = null);
 

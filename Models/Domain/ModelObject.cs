@@ -16,5 +16,13 @@ namespace JoshCodes.Web.Models.Domain
         }
 
         public DomainId Id { get; private set; }
+
+        public DateTime LastModified
+        {
+            get
+            {
+                return definition.UpdatedAt;
+            }
+        }
     }
 }

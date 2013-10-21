@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+using JoshCodes.Web.Models.Api;
 
 namespace JoshCodes.Web.Routing
 {
@@ -9,6 +8,6 @@ namespace JoshCodes.Web.Routing
     {
         T Get(Uri Id, out DateTime lastModified);
         void Put(Uri id, T entity, out DateTime lastModified);
-        Uri Post(T entity, out DateTime lastModified);
+        WebId Post(T entity, out DateTime lastModified);
     }
 }
