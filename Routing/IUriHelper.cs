@@ -27,7 +27,7 @@ namespace JoshCodes.Web.Routing
 
         System.Uri RestfulUrlFor<TController>(IDictionary<string, string> queryParams, bool fullUrl = false);
 
-        System.Uri RestfulUrlFor<TController>(Models.Domain.DomainId id, bool fullUrl = false);
+        System.Uri RestfulUrlFor<TController>(Models.Domain.DomainId id, bool fullId = false, bool fullUrl = false);
 
         System.Uri RestfulUrlFor<TController, TApiModel, T>(Expression<Func<TApiModel, T>> parameter, string value, bool fullUrl = false)
             where TController : IRESTController<TApiModel>;

@@ -45,5 +45,14 @@ namespace JoshCodes.Web.Models.Api
         /// </summary>
         [DataMember(Name = "source")]
         public Uri Source { get; set; }
+
+        public bool IsEmpty()
+        {
+            return
+                String.IsNullOrWhiteSpace(Key) &&
+                (this.Guid == default(Guid) || this.Guid == Guid.Empty) &&
+                Urn == null &&
+                Source == null;
+        }
     }
 }

@@ -205,10 +205,35 @@ namespace JoshCodes.Web.Routing
             throw new NotImplementedException();
         }
 
-        public Uri RestfulUrlFor<TController>(Models.Domain.DomainId id, bool fullUrl = false)
+        public Uri RestfulUrlFor<TController>(Models.Domain.DomainId value, bool fullId = false, bool fullUrl = false)
         {
-            var baseUri = RestfulUrlFor<TController, string>(id == null? String.Empty : id.Urn.AbsoluteUri, fullUrl);
-            return baseUri;
+            string propName = "id";
+            var queryParams = new System.Collections.Generic.Dictionary<string, string>();
+            if (value.Guid != default(Guid))
+            {
+                queryParams.Add(propName + ".guid", value.Guid.ToString());
+                if (!fullId)
+                {
+                    return this.RestfulUrlFor<TController>(queryParams, fullUrl);
+                }
+            }
+            if (!String.IsNullOrWhiteSpace(value.Key))
+            {
+                queryParams.Add(propName + ".key", value.Key);
+                if (!fullId)
+                {
+                    return this.RestfulUrlFor<TController>(queryParams, fullUrl);
+                }
+            }
+            if (value.Urn != null)
+            {
+                queryParams.Add(propName + ".urn", value.Urn.AbsoluteUri);
+                if (!fullId)
+                {
+                    return this.RestfulUrlFor<TController>(queryParams, fullUrl);
+                }
+            }
+            return this.RestfulUrlFor<TController>(queryParams, fullUrl);
         }
     }
 }

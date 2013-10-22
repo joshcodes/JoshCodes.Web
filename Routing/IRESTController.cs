@@ -6,8 +6,8 @@ namespace JoshCodes.Web.Routing
 {
     public interface IRESTController<T>
     {
-        T Get(Uri Id, out DateTime lastModified);
-        void Put(Uri id, T entity, out DateTime lastModified);
+        T Get(WebId Id, out DateTime lastModified);
+        void Put(WebId id, T entity, out DateTime lastModified);
         WebId Post(T entity, out DateTime lastModified);
     }
 }

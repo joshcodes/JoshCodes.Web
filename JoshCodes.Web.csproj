@@ -9,6 +9,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>JoshCodes.Web</RootNamespace>
     <AssemblyName>JoshCodes.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -19,6 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -27,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,13 +46,14 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Attributes\AcceptVerbsByParameterAttribute.cs" />
     <Compile Include="Attributes\RestrictedAttribute.cs" />
-    <Compile Include="ApiException.cs" />
+    <Compile Include="Models\Api\Exceptions.cs" />
     <Compile Include="Controllers\IdExtension.cs" />
     <Compile Include="Models\Api\IRESTApiModel.cs" />
     <Compile Include="Models\Api\ModelObject.cs" />
     <Compile Include="Models\Api\WebId.cs" />
     <Compile Include="Models\Domain\DomainId.cs" />
     <Compile Include="Models\Domain\Extensions.cs" />
+    <Compile Include="Models\Domain\Exceptions.cs" />
     <Compile Include="Models\Domain\ModelObject.cs" />
     <Compile Include="Models\Persistence\IDefineModelObject.cs" />
     <Compile Include="Routing\HttpUriHelper.cs" />
@@ -58,6 +63,7 @@
     <Compile Include="Routing\UriControllerExtensions.cs" />
     <Compile Include="Routing\UriHelper.cs" />
     <Compile Include="Routing\UriHelperExtensions.cs" />
+    <Compile Include="Serialization\NameValueCollectionSerializer.cs" />
     <Compile Include="Uri\UriExtensions.cs" />
     <Compile Include="Attributes\UrnNamespaceIdentifierAttribute.cs" />
     <Compile Include="Attributes\GetAttributeExtensions.cs" />
