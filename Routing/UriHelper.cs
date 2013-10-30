@@ -141,6 +141,11 @@ namespace JoshCodes.Web.Routing
             }
 
             var queryParams = new System.Collections.Generic.Dictionary<string, string>();
+            if (value == null)
+            {
+                return null;
+            }
+
             if (value.Guid != default(Guid))
             {
                 queryParams.Add(propName + ".guid", value.Guid.ToString());

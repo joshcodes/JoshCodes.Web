@@ -108,4 +108,32 @@ namespace JoshCodes.Web.Models.Api
 
         public abstract IEnumerable<IResolutionOption> ResolutionOptions { get; }
     }
+
+    public class StandardAPIException : APIException
+    {
+        public StandardAPIException(Domain.IDomainException domainEx)
+            : base(domainEx.Message)
+        {
+            HttpStatusCode = 500;
+            reason = domainEx.Reason;
+            suggestion = domainEx.Suggestion;
+        }
+
+        public override IEnumerable<IResolutionOption> ResolutionOptions
+        {
+            get { yield break; }
+        }
+
+        private string reason;
+        public override string Reason
+        {
+            get { return reason; }
+        }
+
+        private string suggestion;
+        public override string Suggestion
+        {
+            get { return suggestion; }
+        }
+    }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using JoshCodes.Collections;
 
 namespace JoshCodes.Web.Models.Domain
 {
@@ -29,6 +29,8 @@ namespace JoshCodes.Web.Models.Domain
 
     public interface IDomainException
     {
+        string Message { get; }
+
         string Reason { get; }
 
         string Suggestion { get; }
@@ -53,13 +55,13 @@ namespace JoshCodes.Web.Models.Domain
         public string Reason
         {
             get;
-            private set;
+            protected set;
         }
 
         public string Suggestion
         {
             get;
-            private set;
+            protected set;
         }
 
         public abstract IEnumerable<IResolutionOption> ResolutionOptions { get; }
@@ -103,6 +105,36 @@ namespace JoshCodes.Web.Models.Domain
         {
             get;
             private set;
+        }
+    }
+
+    public class StandardDomainException : Exception, IDomainException
+    {
+        public StandardDomainException(Exception ex)
+            : base(ex.Message, ex)
+        {
+            var reasons = ex.Data.Keys.Select((key) => String.Format("{0} => {1}", key, ex.Data[key]));
+            Reason = String.Join(",", reasons);
+        }
+
+        public string Reason
+        {
+            get;
+            protected set;
+        }
+
+        public string Suggestion
+        {
+            get;
+            protected set;
+        }
+
+        public IEnumerable<IResolutionOption> ResolutionOptions
+        {
+            get
+            {
+                yield break;
+            }
         }
     }
 }

@@ -14,6 +14,17 @@ namespace JoshCodes.Web.Controllers
             where TApiModel : IRESTApiModel
         {
             var urlHelper = new UriHelper(mvcUrlHelper);
+            return IdExtension.ConvertToWebId<TController, TApiModel>(urlHelper, id);
+        }
+
+        public static Models.Api.WebId ConvertToWebId<TController, TApiModel>(this IUriHelper urlHelper, Models.Domain.DomainId id)
+            where TController : System.Web.Mvc.Controller, IRESTController<TApiModel>
+            where TApiModel : IRESTApiModel
+        {
+            if (id == null)
+            {
+                return null;
+            }
             var source = urlHelper.RestfulUrlFor<TController, TApiModel>((model) => model.Id, id, true);
             return new Models.Api.WebId(id.Key, id.Guid, id.Urn, source);
         }
