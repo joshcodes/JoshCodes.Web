@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace JoshCodes.Web.Models.Persistence
 {
     public interface IDefineModelObject
     {
-        string IdKey { get; }
+        Guid Key { get; }
 
-        Guid IdGuid { get; }
+        DateTime LastModified { get; set; }
 
-        Uri IdUrn { get; }
-
-        DateTime UpdatedAt { get; set; }
-
-        DateTime CreatedAt { get; }
+        string[] UrnNamespace { get; }
     }
 }
