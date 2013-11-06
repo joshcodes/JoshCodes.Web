@@ -2,6 +2,7 @@
 
 using JoshCodes.Web.Models.Persistence;
 using JoshCodes.Web.Attributes;
+using JoshCodes.Web.Attributes.Extensions;
 
 namespace JoshCodes.Web.Models.Domain
 {
@@ -15,11 +16,11 @@ namespace JoshCodes.Web.Models.Domain
             this.definition = definition;
         }
 
-        public Guid Id
+        public DomainId Id
         {
             get
             {
-                return this.definition.Key;
+                return definition.GetDomainId(this.GetType());
             }
         }
 

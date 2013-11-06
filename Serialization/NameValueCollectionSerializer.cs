@@ -12,12 +12,19 @@ namespace JoshCodes.Web.Serialization
             var entityConstructor = entityType.GetConstructor(Type.EmptyTypes);
             if (entityConstructor == null)
             {
-                throw new Exception(String.Format("Unserializable type:{0}", entityType.Name));
+                throw new Exception(String.Format("Unserializable type:{0}, does not have default constructor", entityType.FullName));
             }
             var entity = entityConstructor.Invoke(null);
 
             foreach (var propInfo in entityType.GetProperties())
             {
+                var ignoreDataMemberAttr = (System.Runtime.Serialization.IgnoreDataMemberAttribute)propInfo.GetCustomAttributes(
+                    typeof(System.Runtime.Serialization.IgnoreDataMemberAttribute), false).FirstOrDefault();
+                if (ignoreDataMemberAttr != null)
+                {
+                    continue;
+                }
+
                 var propName = propInfo.Name;
                 var dataMemberAttr = (System.Runtime.Serialization.DataMemberAttribute)propInfo.GetCustomAttributes(
                     typeof(System.Runtime.Serialization.DataMemberAttribute), false).FirstOrDefault();

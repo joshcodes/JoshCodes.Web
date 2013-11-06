@@ -81,10 +81,10 @@ namespace JoshCodes.Web.Routing
             return new System.Uri(baseUrl, relativeUrl);
         }
 
-        public Uri RestfulUrlFor<TEntity, TId>(TId id, bool fullUrl = false)
+        public Uri RestfulUrlFor<TController, TId>(TId id, bool fullUrl = false)
         {
             // Get initial route values for controller / action
-            var controllerType = typeof(TEntity);
+            var controllerType = typeof(TController);
             return RestfulUrlFor<TId>(controllerType, id, fullUrl, mvcUrlHelper);
         }
 

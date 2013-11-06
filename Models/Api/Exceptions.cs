@@ -39,6 +39,8 @@ namespace JoshCodes.Web.Models.Api
         IEnumerable<IResolutionOption> ResolutionOptions { get; }
 
         string Message { get; }
+
+        object Response { get; }
     }
 
     public class ResolutionOption : IResolutionOption
@@ -107,6 +109,8 @@ namespace JoshCodes.Web.Models.Api
         public abstract string Suggestion { get; }
 
         public abstract IEnumerable<IResolutionOption> ResolutionOptions { get; }
+
+        public abstract object Response { get; }
     }
 
     public class StandardAPIException : APIException
@@ -134,6 +138,11 @@ namespace JoshCodes.Web.Models.Api
         public override string Suggestion
         {
             get { return suggestion; }
+        }
+
+        public override object Response
+        {
+            get { return null; }
         }
     }
 }

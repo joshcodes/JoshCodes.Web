@@ -4,10 +4,10 @@ using JoshCodes.Web.Models.Api;
 
 namespace JoshCodes.Web.Routing
 {
-    public interface IRESTController<T>
+    public interface IRESTController<TEntity>
     {
-        T Get(WebId Id, out DateTime lastModified);
-        void Put(WebId id, T entity, out DateTime lastModified, out Uri location);
-        WebId Post(T entity, out DateTime lastModified);
+        TEntity Get(WebId Id, out DateTime lastModified);
+        void Put(TEntity entity, out DateTime lastModified);
+        WebId Post(TEntity entity, out DateTime lastModified);
     }
 }
