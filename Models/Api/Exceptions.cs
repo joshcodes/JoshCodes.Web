@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 
@@ -39,6 +40,8 @@ namespace JoshCodes.Web.Models.Api
         IEnumerable<IResolutionOption> ResolutionOptions { get; }
 
         string Message { get; }
+
+        NameValueCollection Headers { get; }
 
         object Response { get; }
     }
@@ -111,6 +114,8 @@ namespace JoshCodes.Web.Models.Api
         public abstract IEnumerable<IResolutionOption> ResolutionOptions { get; }
 
         public abstract object Response { get; }
+
+        public abstract NameValueCollection Headers { get; }
     }
 
     public class StandardAPIException : APIException
@@ -141,6 +146,11 @@ namespace JoshCodes.Web.Models.Api
         }
 
         public override object Response
+        {
+            get { return null; }
+        }
+
+        public override NameValueCollection Headers
         {
             get { return null; }
         }

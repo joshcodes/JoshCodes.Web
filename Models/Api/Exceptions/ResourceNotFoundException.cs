@@ -33,5 +33,10 @@ namespace JoshCodes.Web.Models.Api
         {
             get { return null; }
         }
+
+        public System.Collections.Specialized.NameValueCollection Headers
+        {
+            get { return null; }
+        }
     }
 }

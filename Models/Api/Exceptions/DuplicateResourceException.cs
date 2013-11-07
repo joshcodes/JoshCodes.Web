@@ -6,10 +6,12 @@ namespace JoshCodes.Web.Models.Api
     public class DuplicateResourceException : Exception, IAPIException
     {
         private WebId id;
+        private DateTime lastModified;
 
         public DuplicateResourceException(WebId id, DateTime lastModified)
         {
             this.id = id;
+            this.lastModified = lastModified;
         }
 
         public string Reason
@@ -56,6 +58,16 @@ namespace JoshCodes.Web.Models.Api
         public object Response
         {
             get { return id; }
+        }
+        public System.Collections.Specialized.NameValueCollection Headers
+        {
+            get
+            {
+                var headers = new System.Collections.Specialized.NameValueCollection(1);
+                headers.Add("Content-Location", id.Source.OriginalString);
+                headers.Add("Last-Modified", lastModified.ToString("R"));
+                return headers;
+            }
         }
     }
 }
