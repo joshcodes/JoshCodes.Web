@@ -61,8 +61,10 @@
     <Compile Include="Models\Domain\ModelObject.cs" />
     <Compile Include="Models\Domain\Store.cs" />
     <Compile Include="Models\Persistence\IDefineFile.cs" />
+    <Compile Include="Models\Persistence\IDefineKvp.cs" />
     <Compile Include="Models\Persistence\IDefineModelObject.cs" />
     <Compile Include="Models\Persistence\IStoreFiles.cs" />
+    <Compile Include="Models\Persistence\IStoreKvp.cs" />
     <Compile Include="Models\Persistence\IStoreObjects.cs" />
     <Compile Include="Routing\HttpUriHelper.cs" />
     <Compile Include="Routing\IRESTController.cs" />
