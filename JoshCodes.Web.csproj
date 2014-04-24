@@ -50,6 +50,7 @@
     <Compile Include="Controllers\IdExtension.cs" />
     <Compile Include="Models\Api\Exceptions\DuplicateResourceException.cs" />
     <Compile Include="Models\Api\Exceptions\ResourceNotFoundException.cs" />
+    <Compile Include="Models\Api\ILString.cs" />
     <Compile Include="Models\Api\IRESTApiModel.cs" />
     <Compile Include="Models\Api\ModelObject.cs" />
     <Compile Include="Models\Api\WebId.cs" />
