@@ -10,12 +10,10 @@ namespace JoshCodes.Web.Microdata
     {
         Item [] items;
         int itemsIndex = -1;
-        private string name;
 
-        public Items(HtmlAgilityPack.HtmlNode node, string name)
+        public Items(HtmlAgilityPack.HtmlNode node)
         {
             this.items = GetItems(node).ToArray();
-            this.name = name;
         }
 
         private IEnumerable<Item> GetItems(HtmlAgilityPack.HtmlNode node)
@@ -42,7 +40,15 @@ namespace JoshCodes.Web.Microdata
 
         public string Name
         {
-            get { return this.name; }
+            get
+            {
+                return items[itemsIndex].Name;
+            }
+        }
+
+        public string NamespaceURI
+        {
+            get { return items[itemsIndex].NamespaceURI; }
         }
 
         public System.Xml.XmlNodeType NodeType

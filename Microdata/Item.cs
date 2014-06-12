@@ -8,11 +8,14 @@ namespace JoshCodes.Web.Microdata
 {
     class Item : IMicrodataNode
     {
-        public Item(HtmlAgilityPack.HtmlNode node, string name)
+        public Item(HtmlAgilityPack.HtmlNode node)
         {
-            this.Name = name;
-
-            var typeAttr = node.Attributes.FirstOrDefault((attr) => String.Compare(attr.Name, XmlMicrodataReader.ItemType, true) == 0);
+            var typeAttr = node.Attributes.FirstOrDefault((attr) =>
+                {
+                    var attrName = attr.Name;
+                    var isItemTypeAttr = String.Compare(attr.Name, XmlMicrodataReader.ItemType, true) == 0;
+                    return isItemTypeAttr;
+                });
             if(typeAttr != null)
             {
                 var typeString = typeAttr.Value;
@@ -26,9 +29,9 @@ namespace JoshCodes.Web.Microdata
 
         public Uri Type { get; private set; }
 
-        private IEnumerator<IProperty> properties;
+        private IEnumerator<Property> properties;
 
-        private IEnumerable<IProperty> GetProperties(HtmlAgilityPack.HtmlNode node)
+        private IEnumerable<Property> GetProperties(HtmlAgilityPack.HtmlNode node)
         {
             var itemscopeAttr = node.Attributes.FirstOrDefault((attr) => String.Compare(attr.Name, XmlMicrodataReader.ItemProp, true) == 0);
             if (itemscopeAttr != null)
@@ -50,7 +53,19 @@ namespace JoshCodes.Web.Microdata
             get { return false; }
         }
 
-        public string Name { get; private set; }
+        public string Name
+        {
+            get
+            {
+                var splits = this.Type.OriginalString.Split(new char[] { '/' });
+                return splits[splits.Length - 1];
+            }
+        }
+
+        public string NamespaceURI
+        {
+            get { return this.Type.OriginalString; }
+        }
 
         public System.Xml.XmlNodeType NodeType
         {

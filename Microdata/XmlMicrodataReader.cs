@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace JoshCodes.Web.Microdata
 {
-    class XmlMicrodataReader : XmlReader
+    public class XmlMicrodataReader : XmlReader
     {
         internal const string ItemScope = "itemscope";
         internal const string ItemType = "itemtype";
@@ -19,7 +19,7 @@ namespace JoshCodes.Web.Microdata
         {
             htmlDoc = new HtmlAgilityPack.HtmlDocument();
             htmlDoc.Load(stream);
-            this.baseURI = from.OriginalString;
+            this.baseURI = from == null? null : from.OriginalString;
             this.readState = System.Xml.ReadState.Initial;
         }
 
@@ -54,17 +54,28 @@ namespace JoshCodes.Web.Microdata
         {
             get { return itemStack.First().Name; }
         }
+        public override string NamespaceURI
+        {
+            get { return itemStack.First().NamespaceURI; }
+        }
 
         public override XmlNodeType NodeType
         {
-            get { return itemStack.First().NodeType; }
+            get
+            {
+                if(itemStack.Count == 0)
+                {
+                    return XmlNodeType.Document;
+                }
+                return itemStack.First().NodeType;
+            }
         }
 
         public override bool Read()
         {
             if(readState == System.Xml.ReadState.Initial)
             {
-                var root = new Item(htmlDoc.DocumentNode);
+                var root = new Items(htmlDoc.DocumentNode);
                 itemStack.Insert(0, root);
                 readState = System.Xml.ReadState.Interactive;
             }
@@ -106,10 +117,6 @@ namespace JoshCodes.Web.Microdata
         public override string LookupNamespace(string prefix)
         {
             return prefix;
-        }
-        public override string NamespaceURI
-        {
-            get { throw new NotImplementedException(); }
         }
 
         public override string Prefix

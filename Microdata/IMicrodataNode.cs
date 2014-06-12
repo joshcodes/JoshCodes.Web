@@ -17,5 +17,7 @@ namespace JoshCodes.Web.Microdata
         bool Read(out IMicrodataNode childItem);
 
         string Value { get; }
+
+        string NamespaceURI { get; }
     }
 }

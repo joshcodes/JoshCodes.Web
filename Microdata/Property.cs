@@ -47,21 +47,21 @@ namespace JoshCodes.Web.Microdata
                 var itemscopeAttr = this.node.Attributes.FirstOrDefault((attr) => String.Compare(attr.Name, XmlMicrodataReader.ItemScope, true) == 0);
                 if (itemscopeAttr != null)
                 {
-                    return new Item(this.node, this.Name);
+                    return new Item(this.node);
                 }
                 return null;
             }
         }
 
-        public object Value
+        public string Value
         {
             get
             {
                 var item = this.Item;
-                if(item != null) { return item; }
+                if(item != null) { return item.ToString(); }
 
                 var href = this.Href;
-                if (href != null) { return href; }
+                if (href != null) { return href.OriginalString; }
 
                 return this.Content;
             }
@@ -80,6 +80,11 @@ namespace JoshCodes.Web.Microdata
             get { return itemscopeAttr.Value; }
         }
 
+        public string NamespaceURI
+        {
+            get { return String.Empty; }
+        }
+
         public System.Xml.XmlNodeType NodeType
         {
             get { return System.Xml.XmlNodeType.Element; }
@@ -89,11 +94,6 @@ namespace JoshCodes.Web.Microdata
         {
             childItem = this.Item;
             return childItem == null;
-        }
-
-        string IMicrodataNode.Value
-        {
-            get { return this.Value.ToString(); }
         }
     }
 }

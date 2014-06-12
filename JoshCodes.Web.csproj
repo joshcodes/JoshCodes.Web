@@ -52,9 +52,7 @@
     <Compile Include="Attributes\AcceptVerbsByParameterAttribute.cs" />
     <Compile Include="Attributes\RestrictedAttribute.cs" />
     <Compile Include="Http\Formatting\MultipartMediaTypeFormatter.cs" />
-    <Compile Include="Microdata\IItem.cs" />
     <Compile Include="Microdata\IMicrodataNode.cs" />
-    <Compile Include="Microdata\IProperty.cs" />
     <Compile Include="Microdata\Item.cs" />
     <Compile Include="Microdata\Items.cs" />
     <Compile Include="Microdata\Property.cs" />
@@ -96,12 +94,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\JoshCodes.Core\JoshCodes.Core.csproj">
       <Project>{39C7060E-D6FE-4B54-803A-C26BE8886DEE}</Project>
       <Name>JoshCodes.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
