@@ -8,21 +8,16 @@ namespace JoshCodes.Web.Microdata
 {
     public class XmlMicrodataReader : XmlReader
     {
-        internal const string ItemScope = "itemscope";
-        internal const string ItemType = "itemtype";
-        internal const string ItemProp = "itemprop";
 
-        private HtmlAgilityPack.HtmlDocument htmlDoc;
         private ReadState readState;
+        private Item rootEntity;
 
-        public XmlMicrodataReader(Stream stream, Uri from)
+        public XmlMicrodataReader(HtmlAgilityPack.HtmlNode rootEntity)
         {
-            htmlDoc = new HtmlAgilityPack.HtmlDocument();
-            htmlDoc.Load(stream);
-            this.baseURI = from == null? null : from.OriginalString;
             this.readState = System.Xml.ReadState.Initial;
+            this.rootEntity = new Item(rootEntity);
+            this.nodeType = XmlNodeType.None;
         }
-
 
         private List<IMicrodataNode> itemStack = new List<IMicrodataNode>();
 
@@ -34,50 +29,81 @@ namespace JoshCodes.Web.Microdata
 
         public override int Depth
         {
-            get { return itemStack.Count; }
+            get
+            {
+                if (itemStack.Count == 0)
+                    return 0;
+
+                return (itemStack.Count - 1) + itemStack.First().Depth;
+            }
         }
 
         public override bool EOF
         {
             get
             {
-                return readState != System.Xml.ReadState.EndOfFile;
+                return readState == System.Xml.ReadState.EndOfFile;
             }
         }
 
         public override bool IsEmptyElement
         {
-            get { return itemStack.First().IsEmpty; }
+            get { return false; }
         }
 
         public override string LocalName
         {
-            get { return itemStack.First().Name; }
-        }
-        public override string NamespaceURI
-        {
-            get { return itemStack.First().NamespaceURI; }
+            get
+            {
+                if (readState == System.Xml.ReadState.Initial ||
+                    nodeType == XmlNodeType.None)
+                    return "";
+
+                if (nodeType == XmlNodeType.XmlDeclaration)
+                    return "xml";
+
+                return itemStack.First().Name;
+            }
         }
 
+        public override string NamespaceURI
+        {
+            get { return ""; } // itemStack.First().NamespaceURI; }
+        }
+
+        private XmlNodeType nodeType;
         public override XmlNodeType NodeType
         {
             get
             {
-                if(itemStack.Count == 0)
-                {
-                    return XmlNodeType.Document;
-                }
-                return itemStack.First().NodeType;
+                return nodeType;
             }
+        }
+
+        private void Push(IMicrodataNode node)
+        {
+            itemStack.Insert(0, node);
+        }
+
+        private void Pop()
+        {
+            itemStack.RemoveAt(0);
         }
 
         public override bool Read()
         {
             if(readState == System.Xml.ReadState.Initial)
             {
-                var root = new Items(htmlDoc.DocumentNode);
-                itemStack.Insert(0, root);
+                nodeType = XmlNodeType.XmlDeclaration;
                 readState = System.Xml.ReadState.Interactive;
+                return true;
+            }
+
+            if(nodeType == XmlNodeType.XmlDeclaration)
+            {
+                Push(rootEntity);
+                nodeType = rootEntity.NodeType;
+                return true;
             }
 
             while(itemStack.Count > 0)
@@ -86,15 +112,19 @@ namespace JoshCodes.Web.Microdata
                 IMicrodataNode childItem;
                 if(item.Read(out childItem))
                 {
-                    if(childItem != null)
+                    if (childItem != null)
                     {
-                        itemStack.Insert(0, childItem);
+                        Push(childItem);
+                        nodeType = childItem.NodeType;
                     }
+                    else
+                        nodeType = item.NodeType;
                     return true;
                 }
-                itemStack.Remove(item);
+                Pop();
             }
             readState = System.Xml.ReadState.EndOfFile;
+            nodeType = XmlNodeType.None;
             return false;
         }
 
@@ -109,7 +139,16 @@ namespace JoshCodes.Web.Microdata
 
         public override string Value
         {
-            get { return itemStack.First().Value; }
+            get
+            {
+                if (nodeType == XmlNodeType.XmlDeclaration)
+                    return "version=\"1.0\"";
+
+                if (itemStack.Count == 0)
+                    return "";
+
+                return itemStack.First().Value;
+            }
         }
 
         #region Namespaces

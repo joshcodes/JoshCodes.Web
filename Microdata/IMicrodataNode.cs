@@ -14,10 +14,14 @@ namespace JoshCodes.Web.Microdata
 
         System.Xml.XmlNodeType NodeType { get; }
 
-        bool Read(out IMicrodataNode childItem);
-
         string Value { get; }
 
         string NamespaceURI { get; }
+
+        // Depth added by this node internally
+        // (this is not the depth of the node itself).
+        int Depth { get; }
+
+        bool Read(out IMicrodataNode childItem);
     }
 }

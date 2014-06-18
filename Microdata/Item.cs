@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace JoshCodes.Web.Microdata
 {
     class Item : IMicrodataNode
     {
+        private HtmlAgilityPack.HtmlNode node;
+
         public Item(HtmlAgilityPack.HtmlNode node)
         {
-            var typeAttr = node.Attributes.FirstOrDefault((attr) =>
-                {
-                    var attrName = attr.Name;
-                    var isItemTypeAttr = String.Compare(attr.Name, XmlMicrodataReader.ItemType, true) == 0;
-                    return isItemTypeAttr;
-                });
+            this.node = node;
+
+            var typeAttr = node.GetAttributeItemType();
             if(typeAttr != null)
             {
                 var typeString = typeAttr.Value;
@@ -29,19 +29,35 @@ namespace JoshCodes.Web.Microdata
 
         public Uri Type { get; private set; }
 
-        private IEnumerator<Property> properties;
+        private IEnumerator<IMicrodataNode> properties;
 
-        private IEnumerable<Property> GetProperties(HtmlAgilityPack.HtmlNode node)
+        private IEnumerable<IMicrodataNode> GetProperties(HtmlAgilityPack.HtmlNode node)
         {
-            var itemscopeAttr = node.Attributes.FirstOrDefault((attr) => String.Compare(attr.Name, XmlMicrodataReader.ItemProp, true) == 0);
-            if (itemscopeAttr != null)
+            foreach (var childNode in node.ChildNodes)
             {
-                yield return new Property(node, itemscopeAttr);
+                foreach (var property in GetPropertiesRecursive(childNode))
+                {
+                    yield return property;
+                }
+            }
+        }
+
+        private IEnumerable<IMicrodataNode> GetPropertiesRecursive(HtmlAgilityPack.HtmlNode node)
+        {
+            var itempropAttr = node.GetAttributeItemProperty();
+            if (itempropAttr != null)
+            {
+                // If this has an itemscope then return an item, otherwise a property
+                // This is because item iterates appropriately for the xml expected
+                var itemscopeAttr = node.GetAttributeItemScope();
+                yield return (itemscopeAttr != null)?
+                     (IMicrodataNode)new Item(node) :
+                     (IMicrodataNode)new Property(node, itempropAttr);
                 yield break;
             }
-            foreach (var childNode in node.Descendants())
+            foreach (var childNode in node.ChildNodes)
             {
-                foreach (var property in GetProperties(childNode))
+                foreach (var property in GetPropertiesRecursive(childNode))
                 {
                     yield return property;
                 }
@@ -57,6 +73,10 @@ namespace JoshCodes.Web.Microdata
         {
             get
             {
+                var attrProp = this.node.GetAttributeItemProperty();
+                if (attrProp != null)
+                    return attrProp.Value;
+
                 var splits = this.Type.OriginalString.Split(new char[] { '/' });
                 return splits[splits.Length - 1];
             }
@@ -67,9 +87,18 @@ namespace JoshCodes.Web.Microdata
             get { return this.Type.OriginalString; }
         }
 
+        XmlNodeType nodeType = XmlNodeType.Element;
         public System.Xml.XmlNodeType NodeType
         {
-            get { return System.Xml.XmlNodeType.Element; }
+            get { return nodeType; }
+        }
+
+        public int Depth
+        {
+            get
+            {
+                return 0;
+            }
         }
 
         public bool Read(out IMicrodataNode childItem)
@@ -77,6 +106,11 @@ namespace JoshCodes.Web.Microdata
             if (!properties.MoveNext())
             {
                 childItem = null;
+                if(nodeType == XmlNodeType.Element)
+                {
+                    nodeType = XmlNodeType.EndElement;
+                    return true;
+                }
                 return false;
             }
 

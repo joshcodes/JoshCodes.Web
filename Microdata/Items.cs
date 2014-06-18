@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace JoshCodes.Web.Microdata
 {
+    /*
     class Items : IMicrodataNode
     {
         Item [] items;
@@ -18,7 +19,7 @@ namespace JoshCodes.Web.Microdata
 
         private IEnumerable<Item> GetItems(HtmlAgilityPack.HtmlNode node)
         {
-            var itemscopeAttr = node.Attributes.FirstOrDefault((attr) => String.Compare(attr.Name, XmlMicrodataReader.ItemScope, true) == 0);
+            var itemscopeAttr = node.GetAttributeItemScope();
             if (itemscopeAttr != null)
             {
                 yield return new Item(node);
@@ -72,5 +73,5 @@ namespace JoshCodes.Web.Microdata
         {
             get { return null; }
         }
-    }
+    }*/
 }

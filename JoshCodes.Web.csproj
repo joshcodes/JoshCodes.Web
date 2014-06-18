@@ -55,6 +55,8 @@
     <Compile Include="Microdata\IMicrodataNode.cs" />
     <Compile Include="Microdata\Item.cs" />
     <Compile Include="Microdata\Items.cs" />
+    <Compile Include="Microdata\NodeExtensions.cs" />
+    <Compile Include="Microdata\Parser.cs" />
     <Compile Include="Microdata\Property.cs" />
     <Compile Include="Microdata\XmlMicrodataReader.cs" />
     <Compile Include="Models\Api\Exceptions.cs" />
