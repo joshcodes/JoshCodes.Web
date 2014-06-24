@@ -51,6 +51,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Attributes\AcceptVerbsByParameterAttribute.cs" />
     <Compile Include="Attributes\RestrictedAttribute.cs" />
+    <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Http\Formatting\MultipartMediaTypeFormatter.cs" />
     <Compile Include="Microdata\IMicrodataNode.cs" />
     <Compile Include="Microdata\Item.cs" />
