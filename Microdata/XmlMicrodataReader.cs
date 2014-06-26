@@ -17,7 +17,16 @@ namespace JoshCodes.Web.Microdata
             this.readState = System.Xml.ReadState.Initial;
             this.rootEntity = new Item(rootEntity);
             this.nodeType = XmlNodeType.None;
+            var typeAttr = rootEntity.GetAttributeItemType();
+            if (typeAttr != null)
+            {
+                Uri type;
+                Uri.TryCreate(typeAttr.Value, UriKind.Absolute, out type);
+                this.Type = type;
+            }
         }
+
+        public Uri Type { get; private set; }
 
         private List<IMicrodataNode> itemStack = new List<IMicrodataNode>();
 

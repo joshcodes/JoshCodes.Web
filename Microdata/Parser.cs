@@ -33,7 +33,7 @@ namespace JoshCodes.Web.Microdata
             }
         }
 
-        public IEnumerable<XmlReader> XmlReaders
+        public IEnumerable<XmlMicrodataReader> XmlReaders
         {
             get
             {
