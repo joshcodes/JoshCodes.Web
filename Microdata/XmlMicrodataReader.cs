@@ -30,10 +30,9 @@ namespace JoshCodes.Web.Microdata
 
         private List<IMicrodataNode> itemStack = new List<IMicrodataNode>();
 
-        private string baseURI;
         public override string BaseURI
         {
-            get { return baseURI; }
+            get { throw new NotImplementedException(); }
         }
 
         public override int Depth
