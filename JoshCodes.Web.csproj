@@ -53,6 +53,9 @@
     <Compile Include="Attributes\RestrictedAttribute.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Http\Formatting\MultipartMediaTypeFormatter.cs" />
+    <Compile Include="Metadata\Email.cs" />
+    <Compile Include="Metadata\Name.cs" />
+    <Compile Include="Metadata\Phone.cs" />
     <Compile Include="Microdata\IMicrodataNode.cs" />
     <Compile Include="Microdata\Item.cs" />
     <Compile Include="Microdata\Items.cs" />
