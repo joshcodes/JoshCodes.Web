@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using JoshCodes.Web.Models.Persistence;
 using JoshCodes.Web.Attributes.Extensions;

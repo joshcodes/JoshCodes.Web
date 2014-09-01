@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace JoshCodes.Web.Models.Persistence
+﻿namespace JoshCodes.Web.Models.Persistence
 {
     public interface IStoreKvp : IStoreObjects<IDefineKvp>
     {

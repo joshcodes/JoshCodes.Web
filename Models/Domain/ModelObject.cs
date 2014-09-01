@@ -2,7 +2,6 @@
 
 using JoshCodes.Web.Models.Persistence;
 using JoshCodes.Web.Attributes;
-using JoshCodes.Web.Attributes.Extensions;
 
 namespace JoshCodes.Web.Models.Domain
 {
@@ -41,7 +40,7 @@ namespace JoshCodes.Web.Models.Domain
             }
         }
 
-        public virtual DateTime LastModified
+        public virtual DateTimeOffset LastModified
         {
             get
             {

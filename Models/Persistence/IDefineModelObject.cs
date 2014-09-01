@@ -6,7 +6,7 @@ namespace JoshCodes.Web.Models.Persistence
     {
         Guid Key { get; }
 
-        DateTime LastModified { get; set; }
+        DateTimeOffset LastModified { get; set; }
 
         string[] UrnNamespace { get; }
     }

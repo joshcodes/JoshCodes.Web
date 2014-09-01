@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-using JoshCodes.Core.Urns.Extensions;
 using JoshCodes.Web.Models.Persistence;
 
 namespace JoshCodes.Web.Models.Domain

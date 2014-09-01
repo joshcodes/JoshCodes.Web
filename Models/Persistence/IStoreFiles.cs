@@ -1,4 +1,3 @@
-using System;
 using JoshCodes.Web.Attributes;
 
 namespace JoshCodes.Web.Models.Persistence

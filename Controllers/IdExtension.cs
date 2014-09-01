@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-
 using JoshCodes.Web.Routing;
-using JoshCodes.Web.Routing.Extensions;
 using JoshCodes.Web.Models.Api;
 
 namespace JoshCodes.Web.Controllers

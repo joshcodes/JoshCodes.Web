@@ -1,6 +1,4 @@
-﻿using System;
-
-using JoshCodes.Web.Models.Persistence;
+﻿using JoshCodes.Web.Models.Persistence;
 using JoshCodes.Web.Attributes;
 
 namespace JoshCodes.Web.Models.Domain

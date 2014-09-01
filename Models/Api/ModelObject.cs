@@ -1,8 +1,5 @@
 ﻿using System;
 
-using JoshCodes.Web.Models.Domain;
-using JoshCodes.Web.Models.Persistence;
-
 namespace JoshCodes.Web.Models.Api
 {
     public class ModelObject

@@ -1,4 +1,3 @@
-using System;
 
 namespace JoshCodes.Web.Routing.Extensions
 {

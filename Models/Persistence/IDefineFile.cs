@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
-using JoshCodes.Web.Models.Persistence;
 
 namespace JoshCodes.Web.Models.Persistence
 {
